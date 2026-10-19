@@ -1,16 +1,39 @@
-import { StyleSheet, Text, View } from 'react-native';
-import { colors, fonts } from '../theme';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import PageHeader from '../components/PageHeader';
+import PillButton from '../components/PillButton';
+import { useAuth } from '../context/AuthContext';
+import { colors, fonts, radius } from '../theme';
 
-// Écran temporaire, rempli dans les prochaines étapes
 export default function ProfileScreen() {
+  const { user, logout } = useAuth();
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Profil</Text>
-    </View>
+    <ScrollView style={styles.screen}>
+      <PageHeader title={`Salut ${user?.name}`} subtitle={user?.email} />
+
+      <View style={styles.content}>
+        <View style={styles.card}>
+          <Text style={styles.cardTitle}>Mon compte</Text>
+          <Text style={styles.text}>Prénom : {user?.name}</Text>
+          <Text style={styles.text}>Email : {user?.email}</Text>
+        </View>
+
+        <PillButton title="Se déconnecter" variant="danger" onPress={logout} />
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.mint },
-  title: { fontFamily: fonts.display, fontSize: 32, color: colors.ink, textTransform: 'uppercase' },
+  screen: { flex: 1, backgroundColor: colors.mint },
+  content: { padding: 24, gap: 24 },
+  card: { backgroundColor: colors.card, borderRadius: radius.card, padding: 20 },
+  cardTitle: {
+    fontFamily: fonts.display,
+    fontSize: 22,
+    color: colors.navy,
+    textTransform: 'uppercase',
+    marginBottom: 8,
+  },
+  text: { fontFamily: fonts.body, fontSize: 16, color: colors.ink, marginTop: 4 },
 });

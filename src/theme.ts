@@ -19,6 +19,7 @@ export const colors = {
   line: '#c3dcc5',
   lineInv: '#34365a',
   danger: '#b3261e',
+  dangerLight: '#ffb4ab', // erreurs sur fond bleu nuit
 };
 
 // Noms des polices chargées dans App.tsx
