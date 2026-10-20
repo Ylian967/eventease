@@ -7,6 +7,7 @@ type EventContextType = {
   addEvent: (title: string, description: string, date: string) => void;
   updateEvent: (id: string, title: string, description: string, date: string) => void;
   deleteEvent: (id: string) => void;
+  toggleParticipation: (id: string, email: string) => void;
 };
 
 const EventContext = createContext<EventContextType | null>(null);
@@ -47,8 +48,23 @@ export function EventProvider({ children }: { children: ReactNode }) {
     update(events.filter((event) => event.id !== id));
   }
 
+  // Ajoute le membre aux participants, ou le retire s'il y était déjà
+  function toggleParticipation(id: string, email: string) {
+    update(
+      events.map((event) => {
+        if (event.id !== id) {
+          return event;
+        }
+        const participants = event.participants.includes(email)
+          ? event.participants.filter((participant) => participant !== email)
+          : [...event.participants, email];
+        return { ...event, participants };
+      })
+    );
+  }
+
   return (
-    <EventContext.Provider value={{ events, addEvent, updateEvent, deleteEvent }}>
+    <EventContext.Provider value={{ events, addEvent, updateEvent, deleteEvent, toggleParticipation }}>
       {children}
     </EventContext.Provider>
   );
