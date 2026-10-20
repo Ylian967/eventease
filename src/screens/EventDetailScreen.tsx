@@ -2,6 +2,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Alert, Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
 import DateBadge from '../components/DateBadge';
 import PillButton from '../components/PillButton';
+import { useAuth } from '../context/AuthContext';
 import { useEvents } from '../context/EventContext';
 import { colors, fonts, radius } from '../theme';
 import { RootStackParamList } from '../types';
@@ -9,13 +10,16 @@ import { RootStackParamList } from '../types';
 type Props = NativeStackScreenProps<RootStackParamList, 'EventDetail'>;
 
 export default function EventDetailScreen({ route, navigation }: Props) {
-  const { events, deleteEvent } = useEvents();
+  const { user } = useAuth();
+  const { events, deleteEvent, toggleParticipation } = useEvents();
   const event = events.find((item) => item.id === route.params.id);
 
   // L'événement vient d'être supprimé : on n'affiche plus rien
-  if (!event) {
+  if (!event || !user) {
     return null;
   }
+
+  const isParticipating = event.participants.includes(user.email);
 
   function remove() {
     deleteEvent(route.params.id);
@@ -43,9 +47,18 @@ export default function EventDetailScreen({ route, navigation }: Props) {
         <DateBadge date={event.date} />
         <Text style={styles.title}>{event.title}</Text>
         <Text style={styles.description}>{event.description || 'Pas de description.'}</Text>
+        <Text style={styles.participants}>
+          {event.participants.length} participant{event.participants.length > 1 ? 's' : ''}
+          {isParticipating ? ' · dont toi ✓' : ''}
+        </Text>
       </View>
 
       <View style={styles.actions}>
+        <PillButton
+          title={isParticipating ? 'Je ne participe plus' : 'Je participe'}
+          variant={isParticipating ? 'white' : 'green'}
+          onPress={() => toggleParticipation(event.id, user.email)}
+        />
         <PillButton title="Modifier" variant="white" onPress={() => navigation.navigate('EventForm', { id: event.id })} />
         <PillButton title="Supprimer" variant="danger" onPress={confirmDelete} />
       </View>
@@ -66,5 +79,6 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   description: { fontFamily: fonts.body, fontSize: 16, lineHeight: 24, color: colors.ink, marginTop: 12 },
+  participants: { fontFamily: fonts.bodyBold, fontSize: 14, color: colors.greenInk, marginTop: 16 },
   actions: { gap: 12 },
 });

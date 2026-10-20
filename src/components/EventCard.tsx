@@ -6,11 +6,12 @@ import { EventItem } from '../types';
 type EventCardProps = {
   event: EventItem;
   index: number;
+  isParticipating: boolean;
   onPress: () => void;
 };
 
-// Carte d'un événement dans la liste : date, titre et début de la description
-export default function EventCard({ event, index, onPress }: EventCardProps) {
+// Carte d'un événement dans la liste : date, titre, début de la description et participation
+export default function EventCard({ event, index, isParticipating, onPress }: EventCardProps) {
   // Une carte sur deux est vert pâle
   const backgroundColor = index % 2 === 0 ? colors.card : colors.cardAlt;
 
@@ -28,6 +29,7 @@ export default function EventCard({ event, index, onPress }: EventCardProps) {
       <Text style={styles.description} numberOfLines={2}>
         {event.description}
       </Text>
+      {isParticipating ? <Text style={styles.going}>✓ J'y participe</Text> : null}
     </Pressable>
   );
 }
@@ -43,4 +45,5 @@ const styles = StyleSheet.create({
     marginTop: 12,
   },
   description: { fontFamily: fonts.body, fontSize: 15, color: colors.muted, marginTop: 4 },
+  going: { fontFamily: fonts.bodyBold, fontSize: 14, color: colors.greenInk, marginTop: 12 },
 });

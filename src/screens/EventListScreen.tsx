@@ -4,6 +4,7 @@ import { FlatList, StyleSheet, Text, View } from 'react-native';
 import EventCard from '../components/EventCard';
 import PageHeader from '../components/PageHeader';
 import PillButton from '../components/PillButton';
+import { useAuth } from '../context/AuthContext';
 import { useEvents } from '../context/EventContext';
 import { colors, fonts } from '../theme';
 import { RootStackParamList } from '../types';
@@ -11,6 +12,7 @@ import { RootStackParamList } from '../types';
 export default function EventListScreen() {
   // Cet écran est dans un onglet : on récupère la navigation de la pile principale
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const { user } = useAuth();
   const { events } = useEvents();
 
   // Les événements les plus proches en premier
@@ -35,6 +37,7 @@ export default function EventListScreen() {
           <EventCard
             event={item}
             index={index}
+            isParticipating={!!user && item.participants.includes(user.email)}
             onPress={() => navigation.navigate('EventDetail', { id: item.id })}
           />
         )}
