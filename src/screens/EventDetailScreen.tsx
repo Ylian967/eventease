@@ -1,16 +1,70 @@
-import { StyleSheet, Text, View } from 'react-native';
-import { colors, fonts } from '../theme';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { Alert, Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
+import DateBadge from '../components/DateBadge';
+import PillButton from '../components/PillButton';
+import { useEvents } from '../context/EventContext';
+import { colors, fonts, radius } from '../theme';
+import { RootStackParamList } from '../types';
 
-// Écran temporaire, rempli dans les prochaines étapes
-export default function EventDetailScreen() {
+type Props = NativeStackScreenProps<RootStackParamList, 'EventDetail'>;
+
+export default function EventDetailScreen({ route, navigation }: Props) {
+  const { events, deleteEvent } = useEvents();
+  const event = events.find((item) => item.id === route.params.id);
+
+  // L'événement vient d'être supprimé : on n'affiche plus rien
+  if (!event) {
+    return null;
+  }
+
+  function remove() {
+    deleteEvent(route.params.id);
+    navigation.goBack();
+  }
+
+  // Demande une confirmation avant de supprimer
+  function confirmDelete() {
+    // Alert n'existe pas sur le web, on utilise la fenêtre de confirmation du navigateur
+    if (Platform.OS === 'web') {
+      if (window.confirm('Supprimer cet événement ?')) {
+        remove();
+      }
+      return;
+    }
+    Alert.alert('Supprimer cet événement ?', 'Cette action est définitive.', [
+      { text: 'Annuler', style: 'cancel' },
+      { text: 'Supprimer', style: 'destructive', onPress: remove },
+    ]);
+  }
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Détail</Text>
-    </View>
+    <ScrollView style={styles.screen} contentContainerStyle={styles.content}>
+      <View style={styles.card}>
+        <DateBadge date={event.date} />
+        <Text style={styles.title}>{event.title}</Text>
+        <Text style={styles.description}>{event.description || 'Pas de description.'}</Text>
+      </View>
+
+      <View style={styles.actions}>
+        <PillButton title="Modifier" variant="white" onPress={() => navigation.navigate('EventForm', { id: event.id })} />
+        <PillButton title="Supprimer" variant="danger" onPress={confirmDelete} />
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.mint },
-  title: { fontFamily: fonts.display, fontSize: 32, color: colors.ink, textTransform: 'uppercase' },
+  screen: { flex: 1, backgroundColor: colors.mint },
+  content: { padding: 24, gap: 24 },
+  card: { backgroundColor: colors.card, borderRadius: radius.card, padding: 24 },
+  title: {
+    fontFamily: fonts.display,
+    fontSize: 40,
+    lineHeight: 44,
+    color: colors.navy,
+    textTransform: 'uppercase',
+    marginTop: 16,
+  },
+  description: { fontFamily: fonts.body, fontSize: 16, lineHeight: 24, color: colors.ink, marginTop: 12 },
+  actions: { gap: 12 },
 });
