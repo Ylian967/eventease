@@ -2,8 +2,8 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import EventCard from '../components/EventCard';
-import PageHeader from '../components/PageHeader';
-import PillButton from '../components/PillButton';
+import EventHero from '../components/EventHero';
+import Marquee from '../components/Marquee';
 import { useAuth } from '../context/AuthContext';
 import { useEvents } from '../context/EventContext';
 import { colors, fonts } from '../theme';
@@ -17,38 +17,54 @@ export default function EventListScreen() {
 
   // Les événements les plus proches en premier
   const sortedEvents = [...events].sort((a, b) => a.date.localeCompare(b.date));
+  const participationCount = events.filter(
+    (event) => user && event.participants.includes(user.email)
+  ).length;
 
   return (
-    <View style={styles.screen}>
-      <PageHeader title="Les événements" subtitle="Conférences, ateliers et sorties de l'asso" />
-      <FlatList
-        data={sortedEvents}
-        keyExtractor={(item) => item.id}
-        contentContainerStyle={styles.list}
-        ListHeaderComponent={
-          <View style={styles.addButton}>
-            <PillButton title="+ Ajouter un événement" onPress={() => navigation.navigate('EventForm', {})} />
-          </View>
-        }
-        ListEmptyComponent={
-          <Text style={styles.empty}>Aucun événement pour l'instant. Ajoute le premier !</Text>
-        }
-        renderItem={({ item, index }) => (
+    <FlatList
+      style={styles.screen}
+      data={sortedEvents}
+      keyExtractor={(item) => item.id}
+      contentContainerStyle={styles.list}
+      ListHeaderComponent={
+        <View style={styles.header}>
+          <EventHero
+            name={user?.name ?? ''}
+            eventCount={events.length}
+            participationCount={participationCount}
+            onAdd={() => navigation.navigate('EventForm', {})}
+          />
+          <Marquee text="Conférences ✦ Ateliers ✦ Sorties ✦ Bénévolat ✦ Rencontres ✦" />
+        </View>
+      }
+      ListEmptyComponent={
+        <Text style={styles.empty}>Aucun événement pour l'instant. Ajoute le premier !</Text>
+      }
+      renderItem={({ item, index }) => (
+        <View style={styles.item}>
           <EventCard
             event={item}
             index={index}
             isParticipating={!!user && item.participants.includes(user.email)}
             onPress={() => navigation.navigate('EventDetail', { id: item.id })}
           />
-        )}
-      />
-    </View>
+        </View>
+      )}
+    />
   );
 }
 
 const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: colors.mint },
-  list: { padding: 24 },
-  addButton: { marginBottom: 24 },
-  empty: { fontFamily: fonts.body, fontSize: 16, color: colors.muted, textAlign: 'center' },
+  list: { paddingBottom: 24 },
+  header: { marginBottom: 24 },
+  item: { paddingHorizontal: 24 },
+  empty: {
+    fontFamily: fonts.body,
+    fontSize: 16,
+    color: colors.muted,
+    textAlign: 'center',
+    paddingHorizontal: 24,
+  },
 });

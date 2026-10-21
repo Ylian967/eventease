@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "eventease",
+    "name": "EventEase",
     "slug": "eventease",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -11,7 +11,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
+        "backgroundColor": "#15162e",
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
@@ -23,7 +23,15 @@
     },
     "plugins": [
       "expo-font",
-      "expo-splash-screen"
-    ]
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 200,
+          "backgroundColor": "#15162e"
+        }
+      ]
+    ],
+    "backgroundColor": "#e3f3e3"
   }
 }
