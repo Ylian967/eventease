@@ -1,11 +1,14 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useState } from 'react';
-import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text } from 'react-native';
+import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Calendar } from 'react-native-calendars';
+import { calendarTheme } from '../calendarConfig';
 import Input from '../components/Input';
 import PillButton from '../components/PillButton';
 import { useEvents } from '../context/EventContext';
-import { colors, fonts } from '../theme';
+import { colors, fonts, radius } from '../theme';
 import { RootStackParamList } from '../types';
+import { formatDate, todayString } from '../utils/date';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'EventForm'>;
 
@@ -18,17 +21,12 @@ export default function EventFormScreen({ route, navigation }: Props) {
 
   const [title, setTitle] = useState(existing?.title ?? '');
   const [description, setDescription] = useState(existing?.description ?? '');
-  const [date, setDate] = useState(existing?.date ?? '');
+  const [date, setDate] = useState(existing?.date ?? todayString());
   const [error, setError] = useState('');
 
   function handleSave() {
     if (!title.trim()) {
       setError('Le titre est obligatoire');
-      return;
-    }
-    // Format attendu : AAAA-MM-JJ, par exemple 2026-10-24
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
-      setError('La date doit être au format AAAA-MM-JJ');
       return;
     }
 
@@ -56,7 +54,17 @@ export default function EventFormScreen({ route, navigation }: Props) {
           placeholder="Ce qu'on va faire, où, avec qui…"
           multiline
         />
-        <Input label="Date" value={date} onChangeText={setDate} placeholder="2026-10-24" />
+        {/* La date se choisit en touchant un jour du calendrier */}
+        <Text style={styles.label}>Date : {formatDate(date)}</Text>
+        <View style={styles.calendar}>
+          <Calendar
+            current={date}
+            markedDates={{ [date]: { selected: true } }}
+            onDayPress={(day) => setDate(day.dateString)}
+            firstDay={1}
+            theme={calendarTheme}
+          />
+        </View>
 
         {error ? <Text style={styles.error}>{error}</Text> : null}
 
@@ -77,5 +85,14 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     marginBottom: 24,
   },
+  label: {
+    fontFamily: fonts.bodyBold,
+    fontSize: 12,
+    letterSpacing: 1.2,
+    textTransform: 'uppercase',
+    color: colors.ink,
+    marginBottom: 6,
+  },
+  calendar: { borderRadius: radius.card, overflow: 'hidden', marginBottom: 24 },
   error: { fontFamily: fonts.bodyBold, color: colors.danger, marginBottom: 16 },
 });
