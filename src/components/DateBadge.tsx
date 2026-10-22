@@ -14,7 +14,7 @@ export default function DateBadge({ date }: { date: string }) {
 const styles = StyleSheet.create({
   badge: {
     alignSelf: 'flex-start',
-    backgroundColor: colors.navy,
+    backgroundColor: colors.badge,
     borderRadius: radius.pill,
     paddingHorizontal: 12,
     paddingVertical: 6,
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: fonts.bodyBold,
     fontSize: 12,
-    color: colors.textInv,
+    color: colors.onBadge,
     textTransform: 'uppercase',
     letterSpacing: 1,
   },

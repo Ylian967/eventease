@@ -44,15 +44,15 @@ export default function ProfileScreen() {
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: colors.mint },
+  screen: { flex: 1, backgroundColor: colors.background },
   content: { padding: 24, gap: 24 },
   card: { backgroundColor: colors.card, borderRadius: radius.card, padding: 20 },
   cardTitle: {
     fontFamily: fonts.display,
     fontSize: 22,
-    color: colors.navy,
+    color: colors.title,
     textTransform: 'uppercase',
     marginBottom: 8,
   },
-  text: { fontFamily: fonts.body, fontSize: 16, color: colors.ink, marginTop: 4 },
+  text: { fontFamily: fonts.body, fontSize: 16, color: colors.text, marginTop: 4 },
 });

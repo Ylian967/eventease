@@ -49,12 +49,12 @@ export default function Marquee({ text }: { text: string }) {
 }
 
 const styles = StyleSheet.create({
-  band: { backgroundColor: colors.green, paddingVertical: 14, overflow: 'hidden' },
+  band: { backgroundColor: colors.band, paddingVertical: 14, overflow: 'hidden' },
   track: { flexDirection: 'row', alignSelf: 'flex-start' },
   text: {
     fontFamily: fonts.display,
     fontSize: 24,
-    color: colors.textInv,
+    color: colors.onBand,
     textTransform: 'uppercase',
     paddingRight: 16,
     flexShrink: 0,

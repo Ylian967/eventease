@@ -56,7 +56,7 @@ export default function EventListScreen() {
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: colors.mint },
+  screen: { flex: 1, backgroundColor: colors.background },
   list: { paddingBottom: 24 },
   header: { marginBottom: 24 },
   item: { paddingHorizontal: 24 },

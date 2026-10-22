@@ -75,13 +75,13 @@ export default function EventFormScreen({ route, navigation }: Props) {
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: colors.mint },
+  screen: { flex: 1, backgroundColor: colors.background },
   content: { padding: 24 },
   title: {
     fontFamily: fonts.display,
     fontSize: 40,
     lineHeight: 44,
-    color: colors.navy,
+    color: colors.title,
     textTransform: 'uppercase',
     marginBottom: 24,
   },
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     letterSpacing: 1.2,
     textTransform: 'uppercase',
-    color: colors.ink,
+    color: colors.text,
     marginBottom: 6,
   },
   calendar: { borderRadius: radius.card, overflow: 'hidden', marginBottom: 24 },

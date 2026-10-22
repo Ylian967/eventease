@@ -22,8 +22,8 @@ export default function RootNavigator() {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerStyle: { backgroundColor: colors.navy },
-        headerTintColor: colors.textInv,
+        headerStyle: { backgroundColor: colors.header },
+        headerTintColor: colors.headerText,
         headerTitleStyle: { fontFamily: fonts.display },
       }}
     >

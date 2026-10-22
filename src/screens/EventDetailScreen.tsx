@@ -67,18 +67,18 @@ export default function EventDetailScreen({ route, navigation }: Props) {
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: colors.mint },
+  screen: { flex: 1, backgroundColor: colors.background },
   content: { padding: 24, gap: 24 },
   card: { backgroundColor: colors.card, borderRadius: radius.card, padding: 24 },
   title: {
     fontFamily: fonts.display,
     fontSize: 40,
     lineHeight: 44,
-    color: colors.navy,
+    color: colors.title,
     textTransform: 'uppercase',
     marginTop: 16,
   },
-  description: { fontFamily: fonts.body, fontSize: 16, lineHeight: 24, color: colors.ink, marginTop: 12 },
-  participants: { fontFamily: fonts.bodyBold, fontSize: 14, color: colors.greenInk, marginTop: 16 },
+  description: { fontFamily: fonts.body, fontSize: 16, lineHeight: 24, color: colors.text, marginTop: 12 },
+  participants: { fontFamily: fonts.bodyBold, fontSize: 14, color: colors.success, marginTop: 16 },
   actions: { gap: 12 },
 });
