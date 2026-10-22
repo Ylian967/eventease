@@ -4,6 +4,7 @@ import { FlatList, StyleSheet, Text, View } from 'react-native';
 import EventCard from '../components/EventCard';
 import EventHero from '../components/EventHero';
 import Marquee from '../components/Marquee';
+import SlideIn from '../components/SlideIn';
 import { useAuth } from '../context/AuthContext';
 import { useEvents } from '../context/EventContext';
 import { colors, fonts } from '../theme';
@@ -42,14 +43,17 @@ export default function EventListScreen() {
         <Text style={styles.empty}>Aucun événement pour l'instant. Ajoute le premier !</Text>
       }
       renderItem={({ item, index }) => (
-        <View style={styles.item}>
-          <EventCard
-            event={item}
-            index={index}
-            isParticipating={!!user && item.participants.includes(user.email)}
-            onPress={() => navigation.navigate('EventDetail', { id: item.id })}
-          />
-        </View>
+        // Chaque carte arrive 100 ms après la précédente (au maximum 600 ms d'attente)
+        <SlideIn delay={Math.min(index, 6) * 100}>
+          <View style={styles.item}>
+            <EventCard
+              event={item}
+              index={index}
+              isParticipating={!!user && item.participants.includes(user.email)}
+              onPress={() => navigation.navigate('EventDetail', { id: item.id })}
+            />
+          </View>
+        </SlideIn>
       )}
     />
   );
