@@ -1,21 +1,20 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { colors, fonts } from '../theme';
+import PaintedTitle from './PaintedTitle';
 
 type PageHeaderProps = {
   title: string;
   subtitle?: string;
 };
 
-// Bandeau bleu nuit en haut des onglets, avec un titre en capitales condensées
+// Bandeau noir en haut des onglets, avec un titre peint
 export default function PageHeader({ title, subtitle }: PageHeaderProps) {
   const insets = useSafeAreaInsets();
 
   return (
     <View style={[styles.header, { paddingTop: insets.top + 24 }]}>
-      <Text style={styles.title} accessibilityRole="header">
-        {title}
-      </Text>
+      <PaintedTitle text={title} style={styles.title} />
       {subtitle ? <Text style={styles.subtitle}>{subtitle}</Text> : null}
     </View>
   );

@@ -4,6 +4,7 @@ import { KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Input from '../components/Input';
 import Logo from '../components/Logo';
+import PaintedTitle from '../components/PaintedTitle';
 import PillButton from '../components/PillButton';
 import { useAuth } from '../context/AuthContext';
 import { colors, fonts } from '../theme';
@@ -33,7 +34,7 @@ export default function RegisterScreen({ navigation }: Props) {
       >
         <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
           <Logo />
-          <Text style={styles.title}>Rejoins{'\n'}l'asso</Text>
+          <PaintedTitle text={"Rejoins\nl'asso"} style={styles.title} />
           <Text style={styles.subtitle}>Crée ton compte membre ou bénévole.</Text>
 
           <Input label="Prénom" dark value={name} onChangeText={setName} placeholder="Camille" />

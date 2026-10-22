@@ -2,6 +2,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { colors, fonts } from '../theme';
 import Logo from './Logo';
+import PaintedTitle from './PaintedTitle';
 import PillButton from './PillButton';
 
 type EventHeroProps = {
@@ -11,7 +12,7 @@ type EventHeroProps = {
   onAdd: () => void;
 };
 
-// Grand en-tête bleu nuit de la liste : titre géant, chiffres clés et bouton d'ajout
+// Grand en-tête noir de la liste : titre peint, chiffres clés et bouton d'ajout
 export default function EventHero({ name, eventCount, participationCount, onAdd }: EventHeroProps) {
   const insets = useSafeAreaInsets();
 
@@ -22,10 +23,7 @@ export default function EventHero({ name, eventCount, participationCount, onAdd 
         <Text style={styles.hello}>Salut {name} !</Text>
       </View>
 
-      <Text style={styles.title} accessibilityRole="header">
-        Sorties,{'\n'}ateliers &{'\n'}
-        <Text style={styles.titleGreen}>conférences</Text>
-      </Text>
+      <PaintedTitle text={'Sorties,\nateliers &\nconférences'} style={styles.title} />
 
       <View style={styles.stats}>
         <View>
@@ -34,7 +32,7 @@ export default function EventHero({ name, eventCount, participationCount, onAdd 
         </View>
         <View style={styles.separator} />
         <View>
-          <Text style={[styles.statNumber, styles.titleGreen]}>{participationCount}</Text>
+          <Text style={[styles.statNumber, styles.highlight]}>{participationCount}</Text>
           <Text style={styles.statLabel}>Mes participations</Text>
         </View>
       </View>
@@ -56,7 +54,7 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     marginTop: 32,
   },
-  titleGreen: { color: colors.highlight },
+  highlight: { color: colors.highlight },
   stats: { flexDirection: 'row', alignItems: 'center', gap: 24, marginVertical: 28 },
   statNumber: { fontFamily: fonts.display, fontSize: 44, lineHeight: 48, color: colors.headerText },
   statLabel: {

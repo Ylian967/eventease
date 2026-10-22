@@ -4,6 +4,7 @@ import { KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Input from '../components/Input';
 import Logo from '../components/Logo';
+import PaintedTitle from '../components/PaintedTitle';
 import PillButton from '../components/PillButton';
 import { useAuth } from '../context/AuthContext';
 import { colors, fonts } from '../theme';
@@ -33,7 +34,7 @@ export default function LoginScreen({ navigation }: Props) {
       >
         <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
           <Logo />
-          <Text style={styles.title}>Bon retour{'\n'}parmi nous</Text>
+          <PaintedTitle text={'Bon retour\nparmi nous'} style={styles.title} />
           <Text style={styles.subtitle}>Connecte-toi pour voir les événements de l'association.</Text>
 
           <Input
