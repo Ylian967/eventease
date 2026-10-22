@@ -6,6 +6,7 @@ import { Calendar } from 'react-native-calendars';
 import { calendarTheme } from '../calendarConfig';
 import EventCard from '../components/EventCard';
 import PageHeader from '../components/PageHeader';
+import SlideIn from '../components/SlideIn';
 import { useAuth } from '../context/AuthContext';
 import { useEvents } from '../context/EventContext';
 import { colors, fonts, radius } from '../theme';
@@ -49,13 +50,14 @@ export default function CalendarScreen() {
           <Text style={styles.empty}>Aucun événement ce jour-là.</Text>
         ) : (
           dayEvents.map((event, index) => (
-            <EventCard
-              key={event.id}
-              event={event}
-              index={index}
-              isParticipating={!!user && event.participants.includes(user.email)}
-              onPress={() => navigation.navigate('EventDetail', { id: event.id })}
-            />
+            <SlideIn key={`${selectedDate}-${event.id}`} delay={index * 100}>
+              <EventCard
+                event={event}
+                index={index}
+                isParticipating={!!user && event.participants.includes(user.email)}
+                onPress={() => navigation.navigate('EventDetail', { id: event.id })}
+              />
+            </SlideIn>
           ))
         )}
       </View>

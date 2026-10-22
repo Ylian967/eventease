@@ -1,5 +1,7 @@
-import { Pressable, StyleSheet, Text } from 'react-native';
+import { Animated, Pressable, StyleSheet, Text } from 'react-native';
+import { usePressBounce } from '../hooks/usePressBounce';
 import DateBadge from './DateBadge';
+import PopIn from './PopIn';
 import { colors, fonts, radius } from '../theme';
 import { EventItem } from '../types';
 
@@ -15,22 +17,29 @@ export default function EventCard({ event, index, isParticipating, onPress }: Ev
   // Une carte sur deux est vert pâle
   const backgroundColor = index % 2 === 0 ? colors.card : colors.cardAlt;
 
+  const { scale, onPressIn, onPressOut } = usePressBounce();
+
   return (
-    <Pressable
-      onPress={onPress}
-      accessibilityRole="button"
-      style={({ pressed }) => [
-        styles.card,
-        { backgroundColor, transform: [{ translateY: pressed ? -4 : 0 }] },
-      ]}
-    >
-      <DateBadge date={event.date} />
-      <Text style={styles.title}>{event.title}</Text>
-      <Text style={styles.description} numberOfLines={2}>
-        {event.description}
-      </Text>
-      {isParticipating ? <Text style={styles.going}>✓ J'y participe</Text> : null}
-    </Pressable>
+    <Animated.View style={{ transform: [{ scale }] }}>
+      <Pressable
+        onPress={onPress}
+        onPressIn={onPressIn}
+        onPressOut={onPressOut}
+        accessibilityRole="button"
+        style={[styles.card, { backgroundColor }]}
+      >
+        <DateBadge date={event.date} />
+        <Text style={styles.title}>{event.title}</Text>
+        <Text style={styles.description} numberOfLines={2}>
+          {event.description}
+        </Text>
+        {isParticipating ? (
+          <PopIn trigger={isParticipating}>
+            <Text style={styles.going}>✓ J'y participe</Text>
+          </PopIn>
+        ) : null}
+      </Pressable>
+    </Animated.View>
   );
 }
 
