@@ -3,6 +3,7 @@ import { Alert, Platform, ScrollView, StyleSheet, Text, View } from 'react-nativ
 import DateBadge from '../components/DateBadge';
 import HoldButton from '../components/HoldButton';
 import PillButton from '../components/PillButton';
+import PopIn from '../components/PopIn';
 import { useAuth } from '../context/AuthContext';
 import { useEvents } from '../context/EventContext';
 import { colors, fonts, radius } from '../theme';
@@ -48,10 +49,12 @@ export default function EventDetailScreen({ route, navigation }: Props) {
         <DateBadge date={event.date} />
         <Text style={styles.title}>{event.title}</Text>
         <Text style={styles.description}>{event.description || 'Pas de description.'}</Text>
-        <Text style={styles.participants}>
-          {event.participants.length} participant{event.participants.length > 1 ? 's' : ''}
-          {isParticipating ? ' · dont toi ✓' : ''}
-        </Text>
+        <PopIn trigger={isParticipating}>
+          <Text style={styles.participants}>
+            {event.participants.length} participant{event.participants.length > 1 ? 's' : ''}
+            {isParticipating ? ' · dont toi ✓' : ''}
+          </Text>
+        </PopIn>
       </View>
 
       <View style={styles.actions}>

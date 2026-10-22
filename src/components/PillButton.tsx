@@ -1,4 +1,5 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Animated, Pressable, StyleSheet, Text, View } from 'react-native';
+import { usePressBounce } from '../hooks/usePressBounce';
 import { colors, fonts, radius } from '../theme';
 
 type PillButtonProps = {
@@ -9,19 +10,29 @@ type PillButtonProps = {
 
 // Bouton en forme de touche de clavier : contour noir et relief qui s'enfonce à l'appui
 export default function PillButton({ title, onPress, variant = 'green' }: PillButtonProps) {
+  const { scale, onPressIn, onPressOut } = usePressBounce();
+
   return (
-    <Pressable onPress={onPress} accessibilityRole="button" style={styles.wrapper}>
-      {({ pressed }) => (
-        <>
-          <View style={styles.edge} />
-          <View
-            style={[styles.button, styles[variant], { transform: [{ translateY: pressed ? 4 : 0 }] }]}
-          >
-            <Text style={[styles.text, variant === 'danger' && styles.dangerText]}>{title}</Text>
-          </View>
-        </>
-      )}
-    </Pressable>
+    <Animated.View style={{ transform: [{ scale }] }}>
+      <Pressable
+        onPress={onPress}
+        onPressIn={onPressIn}
+        onPressOut={onPressOut}
+        accessibilityRole="button"
+        style={styles.wrapper}
+      >
+        {({ pressed }) => (
+          <>
+            <View style={styles.edge} />
+            <View
+              style={[styles.button, styles[variant], { transform: [{ translateY: pressed ? 4 : 0 }] }]}
+            >
+              <Text style={[styles.text, variant === 'danger' && styles.dangerText]}>{title}</Text>
+            </View>
+          </>
+        )}
+      </Pressable>
+    </Animated.View>
   );
 }
 
