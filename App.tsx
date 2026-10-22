@@ -1,6 +1,6 @@
-import { Anton_400Regular } from '@expo-google-fonts/anton';
-import { DMSans_400Regular, DMSans_700Bold } from '@expo-google-fonts/dm-sans';
-import { DMSerifDisplay_400Regular } from '@expo-google-fonts/dm-serif-display';
+import { FiraMono_400Regular } from '@expo-google-fonts/fira-mono';
+import { FiraSans_500Medium, FiraSans_700Bold } from '@expo-google-fonts/fira-sans';
+import { LondrinaSolid_900Black } from '@expo-google-fonts/londrina-solid';
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
@@ -15,7 +15,7 @@ import { colors } from './src/theme';
 // Le splash screen reste affiché tant que les polices ne sont pas chargées
 SplashScreen.preventAutoHideAsync();
 
-// Fond menthe par défaut pour tous les écrans
+// Fond du thème par défaut pour tous les écrans
 const navigationTheme = {
   ...DefaultTheme,
   colors: { ...DefaultTheme.colors, background: colors.background },
@@ -23,10 +23,10 @@ const navigationTheme = {
 
 export default function App() {
   const [fontsLoaded] = useFonts({
-    Anton_400Regular,
-    DMSans_400Regular,
-    DMSans_700Bold,
-    DMSerifDisplay_400Regular,
+    FiraMono_400Regular,
+    FiraSans_500Medium,
+    FiraSans_700Bold,
+    LondrinaSolid_900Black,
   });
 
   useEffect(() => {

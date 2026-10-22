@@ -1,6 +1,7 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Alert, Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
 import DateBadge from '../components/DateBadge';
+import HoldButton from '../components/HoldButton';
 import PillButton from '../components/PillButton';
 import { useAuth } from '../context/AuthContext';
 import { useEvents } from '../context/EventContext';
@@ -54,10 +55,12 @@ export default function EventDetailScreen({ route, navigation }: Props) {
       </View>
 
       <View style={styles.actions}>
-        <PillButton
+        <Text style={styles.hint}>
+          Maintiens la touche pour {isParticipating ? 'te désinscrire' : 'participer'}
+        </Text>
+        <HoldButton
           title={isParticipating ? 'Je ne participe plus' : 'Je participe'}
-          variant={isParticipating ? 'white' : 'green'}
-          onPress={() => toggleParticipation(event.id, user.email)}
+          onComplete={() => toggleParticipation(event.id, user.email)}
         />
         <PillButton title="Modifier" variant="white" onPress={() => navigation.navigate('EventForm', { id: event.id })} />
         <PillButton title="Supprimer" variant="danger" onPress={confirmDelete} />
@@ -81,4 +84,5 @@ const styles = StyleSheet.create({
   description: { fontFamily: fonts.body, fontSize: 16, lineHeight: 24, color: colors.text, marginTop: 12 },
   participants: { fontFamily: fonts.bodyBold, fontSize: 14, color: colors.success, marginTop: 16 },
   actions: { gap: 12 },
+  hint: { fontFamily: fonts.mono, fontSize: 12, color: colors.muted, textAlign: 'center' },
 });

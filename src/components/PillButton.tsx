@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { colors, fonts, radius } from '../theme';
 
 type PillButtonProps = {
@@ -7,42 +7,53 @@ type PillButtonProps = {
   variant?: 'green' | 'white' | 'danger';
 };
 
-// Bouton en forme de pilule : vert pour valider, blanc sur bleu nuit, rouge pour supprimer
+// Bouton en forme de touche de clavier : contour noir et relief qui s'enfonce à l'appui
 export default function PillButton({ title, onPress, variant = 'green' }: PillButtonProps) {
   return (
-    <Pressable
-      onPress={onPress}
-      accessibilityRole="button"
-      style={({ pressed }) => [
-        styles.button,
-        styles[variant],
-        { transform: [{ scale: pressed ? 0.97 : 1 }] },
-      ]}
-    >
-      <Text style={[styles.text, variant === 'green' ? styles.textLight : styles.textDark]}>
-        {title}
-      </Text>
+    <Pressable onPress={onPress} accessibilityRole="button" style={styles.wrapper}>
+      {({ pressed }) => (
+        <>
+          <View style={styles.edge} />
+          <View
+            style={[styles.button, styles[variant], { transform: [{ translateY: pressed ? 4 : 0 }] }]}
+          >
+            <Text style={[styles.text, variant === 'danger' && styles.dangerText]}>{title}</Text>
+          </View>
+        </>
+      )}
     </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
+  wrapper: { paddingBottom: 4 },
+  edge: {
+    position: 'absolute',
+    top: 4,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    borderRadius: radius.pill,
+    backgroundColor: colors.text,
+  },
   button: {
     minHeight: 48,
     paddingHorizontal: 32,
     borderRadius: radius.pill,
+    borderWidth: 2,
+    borderColor: colors.text,
     alignItems: 'center',
     justifyContent: 'center',
   },
   green: { backgroundColor: colors.action },
   white: { backgroundColor: colors.secondary },
-  danger: { backgroundColor: colors.secondary, borderWidth: 2, borderColor: colors.danger },
+  danger: { backgroundColor: colors.secondary },
   text: {
     fontFamily: fonts.button,
     fontSize: 14,
     letterSpacing: 1.4,
     textTransform: 'uppercase',
+    color: colors.onSecondary,
   },
-  textLight: { color: colors.onAction },
-  textDark: { color: colors.onSecondary },
+  dangerText: { color: colors.danger },
 });
