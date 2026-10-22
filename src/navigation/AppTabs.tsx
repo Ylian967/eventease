@@ -13,9 +13,9 @@ export default function AppTabs() {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarStyle: { backgroundColor: colors.navy, borderTopColor: colors.lineInv },
-        tabBarActiveTintColor: colors.greenBright,
-        tabBarInactiveTintColor: colors.mutedInv,
+        tabBarStyle: { backgroundColor: colors.header, borderTopColor: colors.headerLine },
+        tabBarActiveTintColor: colors.highlight,
+        tabBarInactiveTintColor: colors.headerMuted,
         tabBarLabelStyle: { fontFamily: fonts.bodyBold },
       }}
     >

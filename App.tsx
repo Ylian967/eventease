@@ -18,7 +18,7 @@ SplashScreen.preventAutoHideAsync();
 // Fond menthe par défaut pour tous les écrans
 const navigationTheme = {
   ...DefaultTheme,
-  colors: { ...DefaultTheme.colors, background: colors.mint },
+  colors: { ...DefaultTheme.colors, background: colors.background },
 };
 
 export default function App() {

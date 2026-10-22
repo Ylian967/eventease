@@ -70,25 +70,25 @@ export default function LoginScreen({ navigation }: Props) {
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: colors.navy },
+  screen: { flex: 1, backgroundColor: colors.header },
   content: { flexGrow: 1, justifyContent: 'center', padding: 24 },
   title: {
     fontFamily: fonts.display,
     fontSize: 56,
     lineHeight: 56,
-    color: colors.textInv,
+    color: colors.headerText,
     textTransform: 'uppercase',
     marginTop: 32,
   },
   subtitle: {
     fontFamily: fonts.body,
     fontSize: 16,
-    color: colors.mutedInv,
+    color: colors.headerMuted,
     marginTop: 8,
     marginBottom: 32,
   },
   error: { fontFamily: fonts.bodyBold, color: colors.dangerLight, marginBottom: 16 },
   link: { minHeight: 44, justifyContent: 'center', alignItems: 'center', marginTop: 16 },
-  linkText: { fontFamily: fonts.body, color: colors.mutedInv, fontSize: 14 },
-  linkStrong: { fontFamily: fonts.bodyBold, color: colors.greenBright },
+  linkText: { fontFamily: fonts.body, color: colors.headerMuted, fontSize: 14 },
+  linkStrong: { fontFamily: fonts.bodyBold, color: colors.highlight },
 });

@@ -40,10 +40,10 @@ const styles = StyleSheet.create({
     fontFamily: fonts.display,
     fontSize: 24,
     lineHeight: 28,
-    color: colors.navy,
+    color: colors.title,
     textTransform: 'uppercase',
     marginTop: 12,
   },
   description: { fontFamily: fonts.body, fontSize: 15, color: colors.muted, marginTop: 4 },
-  going: { fontFamily: fonts.bodyBold, fontSize: 14, color: colors.greenInk, marginTop: 12 },
+  going: { fontFamily: fonts.bodyBold, fontSize: 14, color: colors.success, marginTop: 12 },
 });

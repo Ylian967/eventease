@@ -11,6 +11,6 @@ export default function Logo({ size = 32 }: { size?: number }) {
 }
 
 const styles = StyleSheet.create({
-  logo: { fontFamily: fonts.logo, color: colors.textInv, letterSpacing: -0.5 },
-  dot: { color: colors.greenBright },
+  logo: { fontFamily: fonts.logo, color: colors.headerText, letterSpacing: -0.5 },
+  dot: { color: colors.highlight },
 });

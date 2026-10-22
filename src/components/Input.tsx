@@ -10,7 +10,7 @@ type InputProps = TextInputProps & {
 export default function Input({ label, dark = false, ...props }: InputProps) {
   return (
     <View style={styles.field}>
-      <Text style={[styles.label, { color: dark ? colors.mutedInv : colors.ink }]}>{label}</Text>
+      <Text style={[styles.label, { color: dark ? colors.headerMuted : colors.text }]}>{label}</Text>
       <TextInput
         {...props}
         accessibilityLabel={label}
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.line,
     backgroundColor: colors.card,
-    color: colors.ink,
+    color: colors.text,
     fontFamily: fonts.body,
     fontSize: 16,
   },

@@ -22,13 +22,13 @@ export default function PageHeader({ title, subtitle }: PageHeaderProps) {
 }
 
 const styles = StyleSheet.create({
-  header: { backgroundColor: colors.navy, paddingHorizontal: 24, paddingBottom: 24 },
+  header: { backgroundColor: colors.header, paddingHorizontal: 24, paddingBottom: 24 },
   title: {
     fontFamily: fonts.display,
     fontSize: 44,
     lineHeight: 46,
-    color: colors.textInv,
+    color: colors.headerText,
     textTransform: 'uppercase',
   },
-  subtitle: { fontFamily: fonts.body, fontSize: 15, color: colors.mutedInv, marginTop: 4 },
+  subtitle: { fontFamily: fonts.body, fontSize: 15, color: colors.headerMuted, marginTop: 4 },
 });

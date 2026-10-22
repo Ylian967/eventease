@@ -64,13 +64,13 @@ export default function CalendarScreen() {
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: colors.mint },
+  screen: { flex: 1, backgroundColor: colors.background },
   content: { padding: 24 },
   calendar: { borderRadius: radius.card, overflow: 'hidden', marginBottom: 24 },
   dayTitle: {
     fontFamily: fonts.display,
     fontSize: 28,
-    color: colors.navy,
+    color: colors.title,
     textTransform: 'uppercase',
     marginBottom: 12,
   },

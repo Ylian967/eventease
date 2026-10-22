@@ -45,26 +45,26 @@ export default function EventHero({ name, eventCount, participationCount, onAdd 
 }
 
 const styles = StyleSheet.create({
-  hero: { backgroundColor: colors.navy, paddingHorizontal: 24, paddingBottom: 32 },
+  hero: { backgroundColor: colors.header, paddingHorizontal: 24, paddingBottom: 32 },
   topRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  hello: { fontFamily: fonts.bodyBold, fontSize: 14, color: colors.mutedInv },
+  hello: { fontFamily: fonts.bodyBold, fontSize: 14, color: colors.headerMuted },
   title: {
     fontFamily: fonts.display,
     fontSize: 60,
     lineHeight: 60,
-    color: colors.textInv,
+    color: colors.headerText,
     textTransform: 'uppercase',
     marginTop: 32,
   },
-  titleGreen: { color: colors.greenBright },
+  titleGreen: { color: colors.highlight },
   stats: { flexDirection: 'row', alignItems: 'center', gap: 24, marginVertical: 28 },
-  statNumber: { fontFamily: fonts.display, fontSize: 44, lineHeight: 48, color: colors.textInv },
+  statNumber: { fontFamily: fonts.display, fontSize: 44, lineHeight: 48, color: colors.headerText },
   statLabel: {
     fontFamily: fonts.body,
     fontSize: 12,
-    color: colors.mutedInv,
+    color: colors.headerMuted,
     textTransform: 'uppercase',
     letterSpacing: 1.2,
   },
-  separator: { width: 1, alignSelf: 'stretch', backgroundColor: colors.lineInv },
+  separator: { width: 1, alignSelf: 'stretch', backgroundColor: colors.headerLine },
 });
