@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "main": "index.ts",
   "dependencies": {
-    "@expo-google-fonts/anton": "^0.4.2",
-    "@expo-google-fonts/dm-sans": "^0.4.2",
-    "@expo-google-fonts/dm-serif-display": "^0.4.2",
     "@expo-google-fonts/fira-mono": "^0.4.1",
     "@expo-google-fonts/fira-sans": "^0.4.1",
     "@expo-google-fonts/londrina-solid": "^0.4.1",
